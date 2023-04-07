@@ -4,6 +4,8 @@ require("dotenv").config();
 const express=require("express")
 const app=express()
 const Routes=require("./routes/workouts")
+// mongoos
+const mongoos =require("mongoose")
 // middlware
 app.use(express.json())
 app.use((req,res,next)=>{
@@ -18,10 +20,16 @@ app.use((req,res,next)=>{
 
 app.use("/api/workouts/",Routes)
 
+// connect to db 
 
+mongoos.connect(process.env.MONG_URI)
+.then(()=>{
+    // listen
 
-// listen
-
-app.listen(process.env.PORT,()=>{
-    console.log("listen 4000");
+    app.listen(process.env.PORT,()=>{
+        console.log("listen 4000 and connect the db");
+    })
+})
+.catch((error)=>{
+    console.log(error);
 })

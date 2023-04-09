@@ -1,7 +1,8 @@
 import React from 'react'
 import { BrowserRouter,Route,Routes} from 'react-router-dom'
 import Home from './pages/home'
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar'
+import WourkOutForm from './components/WourkOutForm';
 
 
 function App() {
@@ -17,10 +18,10 @@ function App() {
                </Routes>
        </div>
        
-       
+  
        
        </BrowserRouter>
-    
+      
     </div>
   );
 }

@@ -4,6 +4,7 @@ require("dotenv").config();
 const express=require("express")
 const app=express()
 const Routes=require("./routes/workouts")
+const RouteUser=require("./routes/user")
 const cors = require('cors');
 
 // mongoos
@@ -12,6 +13,7 @@ const mongoos =require("mongoose")
 
 
 // middlware for link (backend to front end )
+
 const allowedOrigins = [process.env.PORTFRONT];
 app.use(cors({
   origin: function(origin, callback) {
@@ -24,6 +26,8 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+
+
 app.use(express.json())
 app.use((req,res,next)=>{
 
@@ -36,6 +40,7 @@ app.use((req,res,next)=>{
 // routes
 
 app.use("/api/workouts/",Routes)
+app.use("/api/user/",RouteUser)
 
 // connect to db 
 

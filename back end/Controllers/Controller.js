@@ -29,8 +29,25 @@ const getworkout=async(req,res)=>{
 // post new workout
 
 const createworkout=async(req,res)=>{
-    const {title,load,reps}=req.body;
-    
+
+    const EmptyInput=[]
+        //create doc in db
+    const {title,load,reps}=req.body
+
+    if (!title) {
+        EmptyInput.push("title")
+    }
+    if (!load) {
+        EmptyInput.push("load")
+    }
+    if (!reps) {
+        EmptyInput.push("reps")
+    }
+   
+
+    if (EmptyInput.length>0) {
+        res.status(400).json({error:" please filil all inputs",EmptyInput})
+    }
     try {
         const workout= await Workout.create({title,load,reps})
         res.status(200).json(workout)

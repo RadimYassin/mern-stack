@@ -1,3 +1,5 @@
+
+
 const { createContext, useReducer } = require("react");
  
 
@@ -16,6 +18,10 @@ export const AppReducer=(state,{type,payload})=>{
         return {
             workouts:[payload,...state.workouts]
         }
+        case "DELETE_WORKOUT" :
+            return {
+                workouts:[...state.workouts.filter(w=>w._id!==payload._id)]
+            }
         default:
             return state ;
     }

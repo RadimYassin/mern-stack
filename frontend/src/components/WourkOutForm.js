@@ -7,7 +7,7 @@ export default function WourkOutForm() {
     const [load, setLoad] = useState("")
     const [reps, setReps] = useState("")
     const [error, setError] = useState("")
-
+    const [emptyInput, setEmptyInput] = useState([])
     const handlSubmit=async(e)=>{
         e.preventDefault()
         const workout={title,load,reps}
@@ -23,12 +23,14 @@ export default function WourkOutForm() {
          const json =await response.json()
          if (!response.ok) {
             setError(json.error)
+            setEmptyInput(json.EmptyInput)
          }
          if (response.ok) {
             setLoad("")
             setReps("")
             setTitle("")
             setError(null)
+            setEmptyInput([])
             dispatch({type:"CREATE_WORKOUT",payload:json})
          }
     }
@@ -45,7 +47,7 @@ export default function WourkOutForm() {
                 value={title}
 
                 onChange={e => setTitle(e.target.value)}
-
+                 className={emptyInput.includes("title") ? "error":""}
 
             />
             <label>
@@ -56,7 +58,7 @@ export default function WourkOutForm() {
                 value={load}
 
                 onChange={e => setLoad(e.target.value)}
-
+                className={emptyInput.includes("load") ? "error":""}
 
             />
 
@@ -69,7 +71,7 @@ export default function WourkOutForm() {
                 value={reps}
 
                 onChange={e => setReps(e.target.value)}
-
+                className={emptyInput.includes("reps") ? "error":""}
 
             />
 
